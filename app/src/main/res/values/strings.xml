@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Component Todo</string>
+
+    <string name="action_check_all">Check All</string>
+    <string name="action_uncheck_all">Uncheck All</string>
+    <string name="action_delete_checked">Delete Checked</string>
+
+    <string name="add_hint">Add Todo</string>
+</resources>
