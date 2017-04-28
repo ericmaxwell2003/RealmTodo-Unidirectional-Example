@@ -13,7 +13,7 @@ import android.widget.TextView;
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
-public class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItem, TodoRecyclerViewAdapter.ViewHolder> {
+public class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItemModel, TodoRecyclerViewAdapter.ViewHolder> {
 
     public interface ItemSelectionChangeDelegate {
         void onSelectionChanged(String itemId, boolean isSelected);
@@ -21,7 +21,7 @@ public class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItem, 
 
     private ItemSelectionChangeDelegate itemSelectionChangeDelegate;
 
-    public TodoRecyclerViewAdapter(@NonNull  ItemSelectionChangeDelegate delegate, @NonNull OrderedRealmCollection<TodoItem> todoList) {
+    public TodoRecyclerViewAdapter(@NonNull  ItemSelectionChangeDelegate delegate, @NonNull OrderedRealmCollection<TodoItemModel> todoList) {
         super(todoList, true);
         itemSelectionChangeDelegate = delegate;
     }
@@ -37,7 +37,7 @@ public class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItem, 
         OrderedRealmCollection data = getData();
         if(data != null) {
             holder.checkBox.setOnCheckedChangeListener(null);
-            final TodoItem item = getData().get(position);
+            final TodoItemModel item = getData().get(position);
             holder.itemId = item.getId();
 
             TextView tv = holder.titleView;

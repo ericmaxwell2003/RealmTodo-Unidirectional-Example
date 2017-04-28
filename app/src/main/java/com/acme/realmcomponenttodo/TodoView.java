@@ -73,7 +73,7 @@ public class TodoView extends AppCompatActivity implements TodoRecyclerViewAdapt
     @Override
     public void onSelectionChanged(String itemId, boolean isSelected) {
         TodoAction action =  isSelected ?
-                new TodoAction(TodoAction.Type.CHECK_ITEM) : 
+                new TodoAction(TodoAction.Type.CHECK_ITEM) :
                 new TodoAction(TodoAction.Type.UNCHECK_ITEM);
         action.addInput("id", itemId);
         todoComponent.performAction(action);
@@ -106,8 +106,8 @@ public class TodoView extends AppCompatActivity implements TodoRecyclerViewAdapt
         }
     }
 
-    private RealmResults<TodoItem> fetchAllTodosAsync() {
-        return realm.where(TodoItem.class).findAllSortedAsync("createdDate", Sort.DESCENDING);
+    private RealmResults<TodoItemModel> fetchAllTodosAsync() {
+        return realm.where(TodoItemModel.class).findAllSortedAsync("createdDate", Sort.DESCENDING);
     }
 
 }

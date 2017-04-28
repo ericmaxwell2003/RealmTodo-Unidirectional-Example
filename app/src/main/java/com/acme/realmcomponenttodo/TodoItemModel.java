@@ -1,54 +1,71 @@
 package com.acme.realmcomponenttodo;
 
-import android.util.Log;
+import java.util.Date;
+import java.util.UUID;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
-public class TodoComponent implements Component<TodoAction> {
+public class TodoItemModel extends RealmObject {
 
-    private static final String TAG = TodoComponent.class.getName();
+    @PrimaryKey
+    @Required
+    private String id;
 
-    @Override
-    public void performAction(TodoAction action) {
+    @Required
+    private Date createdDate;
 
-        Log.i(TAG, "Request Perform Action: " + action.getType().toString());
+    @Required
+    private String text;
 
-        // If this list gets to large, we can always break our TodoComponent into smaller, compose-able, components.
-        switch (action.getType()) {
-            case ADD_ITEM:
-                addItem(action.getInput("text").toString());
-                break;
+    private boolean selected;
 
-            case CHECK_ITEM:
-                setSingleCheckedValue(action.getInput("id").toString(), true);
-                break;
-
-            case UNCHECK_ITEM:
-                setSingleCheckedValue(action.getInput("id").toString(), false);
-                break;
-
-            case CHECK_ALL:
-                setAllCheckedValue(true);
-                break;
-
-            case UNCHECK_ALL:
-                setAllCheckedValue(false);
-                break;
-
-            case DELETE_CHECKED:
-                deleteAllChecked();
-                break;
-
-            default:
-                Log.w(TAG, "Action not supported");
-        }
-
+    public TodoItemModel(String text) {
+        this.id = UUID.randomUUID().toString();
+        this.createdDate = new Date();
+        this.text = text;
     }
 
-    // Private implementation to support the available actions for this TodoComponent.
+    // Getters / Setters
 
-    private void addItem(final String text) {
+    public TodoItemModel() {}
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public static void addItem(final String text) {
 
         if(text == null) {
             return;
@@ -64,7 +81,7 @@ public class TodoComponent implements Component<TodoAction> {
         }
     }
 
-    private void deleteAllChecked() {
+    public static void deleteAllChecked() {
         try (Realm realm = Realm.getDefaultInstance()) {
             realm.executeTransactionAsync(new Realm.Transaction() {
                 @Override
@@ -75,7 +92,7 @@ public class TodoComponent implements Component<TodoAction> {
         }
     }
 
-    private void setAllCheckedValue(final boolean isChecked) {
+    public static void setAllCheckedValue(final boolean isChecked) {
         try(Realm realm = Realm.getDefaultInstance()) {
             realm.executeTransactionAsync(new Realm.Transaction() {
                 @Override
@@ -87,7 +104,7 @@ public class TodoComponent implements Component<TodoAction> {
         }
     }
 
-    private void setSingleCheckedValue(final String itemId, final boolean isChecked) {
+    public static void setSingleCheckedValue(final String itemId, final boolean isChecked) {
 
         if(itemId == null) {
             return;
@@ -103,5 +120,4 @@ public class TodoComponent implements Component<TodoAction> {
             });
         }
     }
-
 }

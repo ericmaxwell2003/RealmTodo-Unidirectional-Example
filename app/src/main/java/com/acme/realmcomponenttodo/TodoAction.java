@@ -28,7 +28,7 @@ public class TodoAction implements Action {
         return this;
     }
 
-    private Object getInput(String key) {
+    public Object getInput(String key) {
         return input.get(key);
     }
 
