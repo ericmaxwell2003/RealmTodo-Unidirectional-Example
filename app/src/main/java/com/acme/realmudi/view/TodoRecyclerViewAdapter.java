@@ -1,4 +1,4 @@
-package com.acme.realmcomponenttodo;
+package com.acme.realmudi.view;
 
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
@@ -10,18 +10,22 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.acme.realmudi.R;
+import com.acme.realmudi.model.TodoItem;
+
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
-public class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItemModel, TodoRecyclerViewAdapter.ViewHolder> {
+class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItem, TodoRecyclerViewAdapter.ViewHolder> {
 
-    public interface ItemSelectionChangeDelegate {
+    // Callback to TodoView (an ItemSelectionChangeDelegate).  Fires when an item is checked.
+    interface ItemSelectionChangeDelegate {
         void onSelectionChanged(String itemId, boolean isSelected);
     }
 
     private ItemSelectionChangeDelegate itemSelectionChangeDelegate;
 
-    public TodoRecyclerViewAdapter(@NonNull  ItemSelectionChangeDelegate delegate, @NonNull OrderedRealmCollection<TodoItemModel> todoList) {
+    TodoRecyclerViewAdapter(@NonNull  ItemSelectionChangeDelegate delegate, @NonNull OrderedRealmCollection<TodoItem> todoList) {
         super(todoList, true);
         itemSelectionChangeDelegate = delegate;
     }
@@ -37,7 +41,7 @@ public class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItemMo
         OrderedRealmCollection data = getData();
         if(data != null) {
             holder.checkBox.setOnCheckedChangeListener(null);
-            final TodoItemModel item = getData().get(position);
+            final TodoItem item = getData().get(position);
             holder.itemId = item.getId();
 
             TextView tv = holder.titleView;
@@ -60,18 +64,14 @@ public class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItemMo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        final View view;
         String itemId;
         final TextView titleView;
         final CheckBox checkBox;
 
         ViewHolder(View view) {
             super(view);
-            this.view = view;
             checkBox = (CheckBox) view.findViewById(R.id.todo_item_checkbox);
             titleView = (TextView) view.findViewById(R.id.todo_item_text);
         }
     }
-
-
 }

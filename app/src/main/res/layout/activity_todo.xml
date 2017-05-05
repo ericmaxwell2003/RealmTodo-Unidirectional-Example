@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="todo.acme.com.realmcomponenttodo.TodoActivity">
+    tools:context=".view.TodoView">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

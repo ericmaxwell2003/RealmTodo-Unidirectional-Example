@@ -1,4 +1,4 @@
-package com.acme.realmcomponenttodo;
+package com.acme.realmudi.model;
 
 import java.util.Date;
 import java.util.UUID;
@@ -21,7 +21,7 @@ public class TodoItem extends RealmObject {
 
     private boolean selected;
 
-    public TodoItem(String text) {
+    public TodoItem(final String text) {
         this.id = UUID.randomUUID().toString();
         this.createdDate = new Date();
         this.text = text;
@@ -35,24 +35,8 @@ public class TodoItem extends RealmObject {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public boolean isSelected() {

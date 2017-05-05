@@ -1,4 +1,4 @@
-package com.acme.realmcomponenttodo;
+package com.acme.realmudi;
 
 import android.app.Application;
 
