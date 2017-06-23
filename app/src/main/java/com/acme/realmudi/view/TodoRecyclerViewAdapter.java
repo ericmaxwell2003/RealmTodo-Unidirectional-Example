@@ -25,7 +25,7 @@ class TodoRecyclerViewAdapter extends RealmRecyclerViewAdapter<TodoItem, TodoRec
 
     private ItemSelectionChangeDelegate itemSelectionChangeDelegate;
 
-    TodoRecyclerViewAdapter(@NonNull  ItemSelectionChangeDelegate delegate, @NonNull OrderedRealmCollection<TodoItem> todoList) {
+    TodoRecyclerViewAdapter(@NonNull OrderedRealmCollection<TodoItem> todoList, @NonNull  ItemSelectionChangeDelegate delegate) {
         super(todoList, true);
         itemSelectionChangeDelegate = delegate;
     }
